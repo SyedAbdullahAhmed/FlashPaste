@@ -1,11 +1,10 @@
 
 import { NextResponse } from "next/server";
 import TextDocument from "@/app/models/file";
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from "@/app/connection/db";
 
 
-export async function GET(req: Request, res: Response) {
+export async function GET(req: Request) {
     try {
         await connect();
 

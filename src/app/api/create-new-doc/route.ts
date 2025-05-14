@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { connect } from "@/app/connection/db";
 
 
-export async function POST(req: Request, res: Response) {
+export async function POST() {
   try {
     await connect();
 
@@ -44,11 +44,11 @@ export async function POST(req: Request, res: Response) {
       }
     );
   } catch (error) {
-    console.error('Some error occur whhile senidnmail:', error);
+    console.error('Some error occur while document creation:', error);
     return NextResponse.json(
       {
         success: false,
-        message: "Some error occur whhile senidnmail",
+        message: "Some error occur while document creation",
         data: null
       },
       {

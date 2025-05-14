@@ -1,12 +1,11 @@
 
 import { NextResponse } from "next/server";
 import TextDocument from "@/app/models/file";
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from "@/app/connection/db";
 import mongoose from 'mongoose';
 
 
-export async function PUT(req: Request, res: Response, params: any) {
+export async function PUT(req: Request) {
     try {
         await connect();
 
@@ -83,11 +82,11 @@ export async function PUT(req: Request, res: Response, params: any) {
             }
         );
     } catch (error) {
-        console.error('Some error occur whhile senidnmail:', error);
+        console.error('Some error occur while updating document:', error);
         return NextResponse.json(
             {
                 success: false,
-                message: "Some error occur whhile senidnmail",
+                message: "Some error occur while updating document",
                 data: null
             },
             {

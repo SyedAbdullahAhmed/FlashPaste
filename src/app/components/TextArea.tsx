@@ -1,7 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react'
 
-const TextArea = ({ text, setText }: any) => {
+const TextArea = ({ text, setText }: { text: string, setText: React.Dispatch<React.SetStateAction<string>> }) => {
     const [newText, setNewText] = useState(text);
 
     // Sync with parent prop
