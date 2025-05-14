@@ -13,7 +13,7 @@ const Navbar = () => {
             <Link href="/" >
             <div className='text-2xl font-bold text-white'>
 
-              Hastebin
+              Flash Paste
             </div>
             </Link>
 
