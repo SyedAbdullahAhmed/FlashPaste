@@ -2,13 +2,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Suspense } from 'react';
 import { Poppins } from 'next/font/google';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Spinner from "./components/Spinner";
 
 const poppins = Poppins({
   variable: "--font-poppins",
-  weight: ['300','400', '500', '600', '700'],
+  weight: ['300', '400', '500', '600', '700'],
   subsets: ["latin"],
 });
 
@@ -41,8 +43,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} antialiased `}
       >
-        {children}
-        <ToastContainer position="bottom-right" autoClose={3000} />
+        <Suspense fallback={<div><Spinner /></div>}>
+          {children}
+          <ToastContainer position="bottom-right" autoClose={3000} />
+        </Suspense>
       </body>
     </html>
   );

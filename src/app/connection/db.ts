@@ -2,7 +2,12 @@
 import mongoose from "mongoose";
 
 
-const connection: any = {};
+
+interface ConnectionType {
+  isConnected?: number;
+}
+
+const connection: ConnectionType = {};
 
 async function connect() {
     // Check if we have a connection to the database or if it's currently connecting

@@ -1,24 +1,24 @@
 "use client"
 import { useState, useEffect } from "react";
+
 import Navbar from "./components/Navbar";
 import TextArea from "./components/TextArea";
 import { toast } from 'react-toastify';
 import axios from "axios";
 import { useSearchParams } from 'next/navigation'
 
+
 export default function Home() {
 
   const [text, setText] = useState<string>("");
-  const [id, setId] = useState<string>(""); 
-  const [uuid, setUuid] = useState<string | null>(""); 
+  const [id, setId] = useState<string>("");
 
   const searchParams = useSearchParams();
   const uuidv = searchParams.get('uuid');
-  
+
 
   useEffect(() => {
     const fetchData = async () => {
-      setUuid(uuidv);
       try {
         if (!uuidv || uuidv === undefined || uuidv === null) {
           const res = await axios.post("/api/create-new-doc");
@@ -31,7 +31,7 @@ export default function Home() {
 
       } catch (error: any) {
         toast.error(error.response.data.message);
-        console.error("Error fetching data:", error);
+
       }
     };
 
@@ -78,7 +78,6 @@ export default function Home() {
 
     } catch (error: any) {
       toast.error(error.response.data.message);
-      console.error("Error fetching data:", error);
     }
   }
   const handleNewFile = async () => {
@@ -110,30 +109,58 @@ export default function Home() {
     } catch (error: any) {
       console.log(error.response.data.message);
       toast.error(error.response.data.message);
-      console.error("Error fetching data:", error);
+
     }
 
   }
 
   return (
-    <div className="h-[120vh] bg-white" >
+    
+    <div className="min-h-screen bg-white flex flex-col">
       <Navbar />
-      <div className="flex flex-col items-center justify-start h-screen bg-gray-100">
-        <div className="flex items-center justify-center gap-[440px] mt-10 mb-2" >
-          <button className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500  transform hover:scale-105 transition-all duration-300 w-[10vw] text-white px-4 py-2 rounded" onClick={handleNewFile}>New File</button>
-          <div className="flex items-center gap-2">
-            <button className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 w-[10vw] text-white px-4 py-2 rounded" onClick={handleDownload}>Download</button>
-            <button className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 w-[15vw] text-white px-4 py-2 rounded" onClick={handleShareAbleLink}>Copy Shareable Link</button>
+      <div className="flex-1 flex flex-col items-center py-6 px-4 bg-gray-100">
+        <div className="w-full max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+          <button
+            className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 
+            w-full sm:w-auto text-white px-4 py-2 rounded shadow-sm"
+            onClick={handleNewFile}>
+            New File
+          </button>
+
+          <div className="flex flex-wrap justify-center sm:justify-end gap-2 w-full sm:w-auto">
             <button
-              onClick={() => handleCopy(text)} className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 w-[10vw] text-white px-4 py-2 rounded">Copy Text</button>
-            <button className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 w-[10vw] text-white px-4 py-2 rounded" onClick={handleSave}>Save</button>
+              className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 
+              text-white px-4 py-2 rounded shadow-sm flex-1 sm:flex-none min-w-[120px]"
+              onClick={handleDownload}>
+              Download
+            </button>
+            <button
+              className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 
+              text-white px-4 py-2 rounded shadow-sm flex-1 sm:flex-none min-w-[180px]"
+              onClick={handleShareAbleLink}>
+              Copy Shareable Link
+            </button>
+            <button
+              onClick={() => handleCopy(text)}
+              className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 
+              text-white px-4 py-2 rounded shadow-sm flex-1 sm:flex-none min-w-[120px]">
+              Copy Text
+            </button>
+            <button
+              className="cursor-pointer bg-gradient-to-r from-red-400 to-pink-500 transform hover:scale-105 transition-all duration-300 
+              text-white px-4 py-2 rounded shadow-sm flex-1 sm:flex-none min-w-[120px]"
+              onClick={handleSave}>
+              Save
+            </button>
           </div>
         </div>
-        <div>
-          <TextArea text={text} setText={setText}  />
-        </div>
 
+        <div className="w-full max-w-6xl">
+          <TextArea text={text} setText={setText} />
+        </div>
       </div>
     </div>
   );
 }
+
+
